@@ -5,7 +5,7 @@ import Collection.SpaceMarine;
 import java.util.HashMap;
 import java.util.Set;
 
-public class CountLessThanHealth {
+public class CountLessThanHealth implements Command {
     HashMap<Integer, SpaceMarine> spaceMarineHashMap;
     int hp;
 
@@ -13,7 +13,10 @@ public class CountLessThanHealth {
         spaceMarineHashMap = marineHashMap;
         hp = rehp;
     }
-    public void execute() {
+    public void execute(String[] args) {
+        if (args.length > 1) {
+            System.out.println("нужен только 1 аргумент");
+        }
         int sh = 0;
         Set<Integer> mapValues = spaceMarineHashMap.keySet();
         for (var v: mapValues) {

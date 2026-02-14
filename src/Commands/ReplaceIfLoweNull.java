@@ -4,7 +4,7 @@ import Collection.SpaceMarine;
 
 import java.util.HashMap;
 
-public class ReplaceIfLoweNull {
+public class ReplaceIfLoweNull implements Command {
     HashMap<Integer, SpaceMarine> spaceMarineHashMap;
     SpaceMarine spaceMarine;
 

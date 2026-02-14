@@ -1,7 +1,9 @@
 package Commands;
 
+import Managers.CollectionManager;
+
 public interface Command {
-    void execute();
+    void execute(String[] args, CollectionManager collectionManager);
     String getName();
     String getDescription();
 }

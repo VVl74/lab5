@@ -1,9 +1,11 @@
 import Collection.SpaceMarine;
-import Commands.Command;
-import Commands.*;
-import Commands.Info;
+import Managers.CollectionManager;
+import Managers.CommandManager;
+import Managers.FileManager;
 
+import java.io.FileNotFoundException;
 import java.util.HashMap;
+import java.util.Scanner;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
@@ -11,15 +13,36 @@ public class Main {
     public static void main(String[] args) {
         //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
         // to see how IntelliJ IDEA suggests fixing it.
-        HashMap <String, Command> commandHashMap = new HashMap<>();
+
+        String filename = "data";
+
+        FileManager fileManager = new FileManager();
+
+        fileManager.setFilename(filename);
+
+        HashMap <Integer, SpaceMarine> newcol;
+
+        try {
+            newcol = fileManager.fileRead();
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        CollectionManager collectionManager = new CollectionManager(newcol);
 
         HashMap <Integer, SpaceMarine> spaceMarineHashMap = new HashMap<>();
 
-        commandHashMap.put("help", new Help());
-        commandHashMap.put("info", new Info());
+        Scanner scanner = new Scanner(System.in);
 
+        CommandManager curCommandManager = new CommandManager(collectionManager);
 
+        while (true) {
+            String input = scanner.nextLine();
 
+            String[] parts = input.split(" ");
+
+            curCommandManager.newCommand(parts);
+        }
 
     }
 }

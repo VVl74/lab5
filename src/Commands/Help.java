@@ -1,7 +1,7 @@
 package Commands;
 
 public class Help implements Command {
-    public void execute() {
+    public void execute(String[] args) {
         System.out.println("вывести тут стену текста");
         System.out.println("про все команды кучей принтов");
     }

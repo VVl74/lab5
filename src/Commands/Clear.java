@@ -11,7 +11,7 @@ public class Clear implements Command {
         spaceMarineHashMap = marineHashMap;
 
     }
-    public void execute() {
+    public void execute(String[] args) {
         spaceMarineHashMap.clear();
     }
     public String getName() {
