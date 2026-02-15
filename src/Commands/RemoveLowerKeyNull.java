@@ -1,35 +1,29 @@
 package Commands;
 
 import Collection.SpaceMarine;
+import Managers.CollectionManager;
 
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Set;
 
 public class RemoveLowerKeyNull implements Command {
-    HashMap<Integer, SpaceMarine> spaceMarineHashMap;
-    int id;
-
-    public RemoveLowerKeyNull(HashMap<Integer, SpaceMarine> marineHashMap) {
-        spaceMarineHashMap = marineHashMap;
-    }
-    public void execute(String[] args) {
+    public void execute(String[] args, CollectionManager collectionManager) {
         if (args.length > 1) {
             System.out.println("слишком много аргументов");
         } else {
-            id = Integer.parseInt(args[0]);
-        }
-        Set<Integer> mapValues = spaceMarineHashMap.keySet();
-        for (var v: mapValues) {
-            if (v < id) {
-                spaceMarineHashMap.remove(id);
+            int id = Integer.parseInt(args[0]);
+
+            Set<Integer> mapValues = collectionManager.getCollection().keySet();
+            for (var v : mapValues) {
+                if (v < id) {
+                    collectionManager.getCollection().remove(id);
+                }
             }
         }
     }
-    public String getName() {
-        return "removeKeyNull";
-    }
-    public String getDescription() {
-        return "1234";
+    public String getComandInfo() {
+        return "remove_lower_key null : удалить из коллекции все элементы, " +
+                "ключ которых меньше, чем заданный\n";
     }
 }

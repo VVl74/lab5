@@ -4,6 +4,5 @@ import Managers.CollectionManager;
 
 public interface Command {
     void execute(String[] args, CollectionManager collectionManager);
-    String getName();
-    String getDescription();
+    String getComandInfo();
 }

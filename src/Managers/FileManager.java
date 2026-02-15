@@ -4,6 +4,7 @@ import Collection.*;
 
 import java.io.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class FileManager {
@@ -16,8 +17,6 @@ public class FileManager {
 
     public HashMap<Integer, SpaceMarine> fileRead() throws FileNotFoundException {
         HashMap <Integer, SpaceMarine> spaceMarineHashMap = new HashMap<>();
-
-        //name;x;y;health;astartescategory;weapon;meleeWeapon;chapterName;parentLegion;marinesCount;world
 
         try (InputStreamReader bufreader = new InputStreamReader(new FileInputStream(filename))) {
             BufferedReader reader = new BufferedReader(bufreader);
@@ -34,6 +33,24 @@ public class FileManager {
         }
 
         return spaceMarineHashMap;
+    }
+
+    public ArrayList<String> commandRead() throws FileNotFoundException {
+        ArrayList<String> args = new ArrayList<>();
+        try (InputStreamReader bufreader = new InputStreamReader(new FileInputStream(filename))) {
+            BufferedReader reader = new BufferedReader(bufreader);
+
+            String input;
+
+
+            while((input = reader.readLine()) != null) {
+                args.add(input);
+            }
+        } catch(IOException exep) {
+            System.out.println("с файлом что то не то " + exep.getMessage());
+        }
+
+        return args;
     }
 
     public SpaceMarine parserMar(String str) {

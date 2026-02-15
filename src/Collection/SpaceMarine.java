@@ -36,9 +36,33 @@ public class SpaceMarine implements Comparable<SpaceMarine> {
     public double getHealth() {
         return health;
     }
+    public String getName() {
+        return name;
+    }
+    public Coordinates getCoordinates() {
+        return coordinates;
+    }
     public Chapter getChapter() {
         return chapter;
     }
+
+    public LocalDateTime spaceGetTime() {
+        return creationDate;
+    }
+
+    public AstartesCategory getCategory() {
+        return category;
+    }
+
+    public Weapon getWeaponType() {
+        return weaponType;
+    }
+
+    public MeleeWeapon getMeleeWeapon() {
+        return meleeWeapon;
+    }
+
+
 
     @Override
     public String toString() {

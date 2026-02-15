@@ -8,4 +8,12 @@ public class Coordinates {
         x = nx;
         y = ny;
     }
+
+    public float getX() {
+        return x;
+    }
+
+    public long getY() {
+        return y;
+    }
 }

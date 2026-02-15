@@ -25,4 +25,11 @@ public class Chapter implements Comparable<Chapter> {
     public String getName() {
         return name;
     }
+
+    public String getParentLegion() {
+        return parentLegion;
+    }
+    public String getWorld() {
+        return world;
+    }
 }

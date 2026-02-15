@@ -1,14 +1,24 @@
 package Commands;
 
+import Managers.CollectionManager;
+
+import java.util.HashMap;
+import java.util.Set;
+
 public class Help implements Command {
-    public void execute(String[] args) {
-        System.out.println("вывести тут стену текста");
-        System.out.println("про все команды кучей принтов");
+    private HashMap<String, Command> commandHashMap;
+
+    public Help(HashMap<String, Command> newCommandHashMap) {
+        commandHashMap = newCommandHashMap;
     }
-    public String getName() {
-        return "help";
+    public void execute(String[] args, CollectionManager collectionManager) {
+        Set<String> keys = commandHashMap.keySet();
+
+        for(String i: keys) {
+            System.out.println(commandHashMap.get(i).getComandInfo());
+        }
     }
-    public String getDescription() {
-        return "1234";
+    public String getComandInfo() {
+        return "help : вывести справку по доступным командам\n";
     }
 }

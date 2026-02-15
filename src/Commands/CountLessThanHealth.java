@@ -1,7 +1,9 @@
 package Commands;
 
 import Collection.SpaceMarine;
+import Managers.CollectionManager;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Set;
 
@@ -9,28 +11,24 @@ public class CountLessThanHealth implements Command {
     HashMap<Integer, SpaceMarine> spaceMarineHashMap;
     int hp;
 
-    public CountLessThanHealth(HashMap<Integer, SpaceMarine> marineHashMap, int rehp) {
-        spaceMarineHashMap = marineHashMap;
-        hp = rehp;
-    }
-    public void execute(String[] args) {
+    public void execute(String[] args, CollectionManager collectionManager) {
         if (args.length > 1) {
             System.out.println("нужен только 1 аргумент");
-        }
-        int sh = 0;
-        Set<Integer> mapValues = spaceMarineHashMap.keySet();
-        for (var v: mapValues) {
-            if (spaceMarineHashMap.get(v).getHealth() < hp) {
-                sh++;
-            }
-        }
+        } else {
+            hp = Integer.parseInt(args[0]);
+            int sh = 0;
+            Set <Integer> mapValues = spaceMarineHashMap.keySet();
 
-        System.out.println(sh);
+            for (var v : mapValues) {
+                if (spaceMarineHashMap.get(v).getHealth() < hp) {
+                    sh++;
+                }
+            }
+            System.out.println(sh);
+        }
     }
-    public String getName() {
-        return "CountLessThanHealth";
-    }
-    public String getDescription() {
-        return "1234";
+    public String getComandInfo() {
+        return "count_less_than_health: вывести количество элементов," +
+                " значение поля health которых меньше заданного\n";
     }
 }

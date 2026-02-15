@@ -14,23 +14,21 @@ public class Main {
         //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
         // to see how IntelliJ IDEA suggests fixing it.
 
-        String filename = "data";
+        String filename = "data.csv";
 
         FileManager fileManager = new FileManager();
 
         fileManager.setFilename(filename);
 
-        HashMap <Integer, SpaceMarine> newcol;
+        HashMap <Integer, SpaceMarine> newCollection;
 
         try {
-            newcol = fileManager.fileRead();
+            newCollection = fileManager.fileRead();
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
 
-        CollectionManager collectionManager = new CollectionManager(newcol);
-
-        HashMap <Integer, SpaceMarine> spaceMarineHashMap = new HashMap<>();
+        CollectionManager collectionManager = new CollectionManager(newCollection);
 
         Scanner scanner = new Scanner(System.in);
 
