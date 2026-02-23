@@ -1,6 +1,8 @@
 package Managers;
 
 import Commands.*;
+import Exeptions.ArgExeption;
+import Exeptions.CommandExeption;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,10 +19,10 @@ public class CommandManager {
         commandHashMap.put("info", new Info());
         commandHashMap.put("history", new History(commandHistory));
         commandHashMap.put("exit", new Exit());
-        commandHashMap.put("cleat", new Clear());
+        commandHashMap.put("clear", new Clear());
         commandHashMap.put("show", new Show());
-        commandHashMap.put("insert null", new InsertNull());
-        commandHashMap.put("update id", new UpdateId());
+        commandHashMap.put("insert", new InsertNull());
+        commandHashMap.put("update", new UpdateId());
         commandHashMap.put("remove_key", new RemoveKeyNull());
         commandHashMap.put("execute_script", new ExecuteScriptFileName());
         commandHashMap.put("save", new Save());
@@ -37,7 +39,11 @@ public class CommandManager {
         String[] commandArgs = Arrays.copyOfRange(args, 1, args.length);
 
         if (commandHashMap.containsKey(com)) {
-            commandHashMap.get(com).execute(commandArgs, collectionManager);
+            try {
+                commandHashMap.get(com).execute(commandArgs, collectionManager);
+            } catch (ArgExeption e) {
+                System.out.println("Ошибка, команда не выполнена");
+            }
             commandHistory.add(com);
         } else {
             System.out.println("неизвестная команда");

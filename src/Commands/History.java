@@ -4,6 +4,8 @@ import Managers.CollectionManager;
 
 import java.util.ArrayList;
 
+import static java.lang.Math.max;
+
 public class History implements Command {
     ArrayList<String> history;
     public History(ArrayList<String> commandHistory) {
@@ -11,7 +13,7 @@ public class History implements Command {
     }
     @Override
     public void execute(String[] args, CollectionManager collectionManager) {
-        for (int i=history.toArray().length - 14; i < history.toArray().length; i++) {
+        for (int i = max(history.toArray().length - 14, 0); i < history.toArray().length; i++) {
             System.out.println(history.get(i));
         }
     }

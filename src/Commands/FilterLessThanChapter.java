@@ -2,7 +2,10 @@ package Commands;
 
 import Collection.Chapter;
 import Collection.SpaceMarine;
+import Exeptions.ArgExeption;
+import Exeptions.InputExeption;
 import Managers.CollectionManager;
+import Utils.Parser;
 
 import java.util.HashMap;
 import java.util.Set;
@@ -10,14 +13,20 @@ import java.util.Set;
 public class FilterLessThanChapter implements Command {
     public void execute(String[] args, CollectionManager collectionManager) {
         if (args.length !=4) {
-            System.out.println("неверное число аргументов");
-        } else {
-            Chapter chapter = new Chapter(args[0], args[1], (long) Integer.parseInt(args[2]), args[3]);
-            Set<Integer> mapValues = collectionManager.getCollection().keySet();
-            for (var v : mapValues) {
-                if (collectionManager.getCollection().get(v).getChapter().compareTo(chapter) < 0) {
-                    System.out.println(collectionManager.getCollection().get(v));
-                }
+            throw  new ArgExeption();
+            // System.out.println("неверное число аргументов");
+        }
+        Parser parser = new Parser();
+        Chapter chapter = null;
+        try {
+            chapter = parser.parseChapter(args);
+        } catch (Exception e) {
+            throw new InputExeption();
+        }
+        Set<Integer> mapValues = collectionManager.getCollection().keySet();
+        for (var v : mapValues) {
+            if (collectionManager.getCollection().get(v).getChapter().compareTo(chapter) < 0) {
+                System.out.println(collectionManager.getCollection().get(v));
             }
         }
     }

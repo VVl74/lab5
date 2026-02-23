@@ -1,4 +1,5 @@
 import Collection.SpaceMarine;
+import Exeptions.CommandExeption;
 import Managers.CollectionManager;
 import Managers.CommandManager;
 import Managers.FileManager;
@@ -20,12 +21,12 @@ public class Main {
 
         fileManager.setFilename(filename);
 
-        HashMap <Integer, SpaceMarine> newCollection;
+        HashMap <Integer, SpaceMarine> newCollection = new HashMap<>();
 
         try {
             newCollection = fileManager.fileRead();
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+        } catch (Exception e) {
+             System.out.println("не удалось прочитать файл");
         }
 
         CollectionManager collectionManager = new CollectionManager(newCollection);
@@ -35,12 +36,19 @@ public class Main {
         CommandManager curCommandManager = new CommandManager(collectionManager);
 
         while (true) {
+            if (!scanner.hasNextLine()) {
+                System.out.println("Ввод завершен");
+                break;
+            }
             String input = scanner.nextLine();
 
             String[] parts = input.split(" ");
 
-            curCommandManager.newCommand(parts);
+            try {
+                curCommandManager.newCommand(parts);
+            } catch (Exception e) {
+                System.out.println("Ошибка, команда не выполнена");
+            }
         }
-
     }
 }

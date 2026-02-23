@@ -1,5 +1,7 @@
 package Commands;
 
+import Exeptions.ArgExeption;
+import Exeptions.RecursExeption;
 import Managers.CollectionManager;
 import Managers.CommandManager;
 import Managers.FileManager;
@@ -11,28 +13,36 @@ public class ExecuteScriptFileName implements Command {
 
     public void execute(String[] args, CollectionManager collection) {
         if (args.length > 1 || args.length == 0) {
-            System.out.println("не правильный формат ввода");
+            throw  new ArgExeption();
+            // System.out.println("не правильный формат ввода");
+        }
+        String filename = args[0];
+
+        if (collection.scriptIf(filename)) {
+            throw new RecursExeption();
         } else {
-            String filename = args[0];
-            FileManager fileManager = new FileManager();
+            collection.scriptInsert(filename);
+        }
 
-            fileManager.setFilename(filename);
-            ArrayList<String> commands = null;
+        FileManager fileManager = new FileManager();
 
-            try {
-                commands = fileManager.commandRead();
-            } catch (FileNotFoundException e) {
-                System.out.println("имя файла неверно или файл не читаем");
+        fileManager.setFilename(filename);
+        ArrayList<String> commands = null;
+
+        try {
+            commands = fileManager.commandRead();
+        } catch (FileNotFoundException e) {
+            System.out.println("имя файла неверно или файл не читаем");
+        }
+
+        CommandManager commandManager = new CommandManager(collection);
+
+        if (commands != null) {
+            for (String i : commands) {
+                String[] newArgs = i.split(" ");
+                commandManager.newCommand(newArgs);
             }
-
-            CommandManager commandManager = new CommandManager(collection);
-
-            if (commands != null) {
-                for (String i : commands) {
-                    String[] newArgs = i.split(" ");
-                    commandManager.newCommand(newArgs);
-                }
-            }
+            collection.scriptRemove(filename);
         }
     }
 

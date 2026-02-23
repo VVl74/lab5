@@ -1,0 +1,15 @@
+help
+info
+show
+insert 500 Ultramarine 12.5 7 150 ASSAULT BOLTGUN CHAIN_SWORD Ultramar Guilliman 500 Macragge
+update 1 Ultramarine 12.5 7 150 ASSAULT BOLTGUN CHAIN_SWORD Ultramar Guilliman 500 Macragge
+remove_key 1
+count_less_than_health 100
+filter_less_than_chapter Ultramar Guilliman 400 Macragge
+filter_greater_than_chapter Ultramar Guilliman 200 Macragge
+remove_lower_key 5
+replace_if_lowe 6 Ultramarine 12.5 7 50 ASSAULT BOLTGUN CHAIN_SWORD Ultramar Guilliman 500 Macragge
+history
+save data.csv
+clear
+exit

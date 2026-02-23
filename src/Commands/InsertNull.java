@@ -1,21 +1,25 @@
 package Commands;
 
 import Collection.*;
+import Exeptions.ArgExeption;
 import Managers.CollectionManager;
-import Managers.Parser;
-
-import java.time.LocalDateTime;
-import java.util.HashMap;
+import Utils.Parser;
 
 public class InsertNull implements Command {
     public void execute(String[] args, CollectionManager collectionManager) {
-        if (args.length != 11) {
-            System.out.println("неверное число аргументов");
-        } else {
-            Parser parser = new Parser();
-            SpaceMarine spacemar = parser.parsSpaceMarine(args);
-            collectionManager.inputElement(spacemar);
+        if (args.length != 12) {
+            throw new ArgExeption();
+            //System.out.println("неверное число аргументов " + args.length);
         }
+        Parser parser = new Parser();
+        SpaceMarine spacemar = null;
+        try {
+            spacemar = parser.parsSpaceMarine(args);
+        } catch (Exception e) {
+            System.out.println("ошибка ввода данных");
+            return;
+        }
+        collectionManager.inputElement(spacemar);
     }
     public String getComandInfo() {
         return "insert null {element} : добавить новый элемент с заданным ключом\n";

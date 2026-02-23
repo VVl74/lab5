@@ -1,23 +1,27 @@
 package Commands;
 
 import Collection.SpaceMarine;
+import Exeptions.ArgExeption;
 import Managers.CollectionManager;
-import Managers.Parser;
-
-import java.util.HashMap;
+import Utils.Parser;
 
 public class ReplaceIfLoweNull implements Command {
     public void execute(String[] args, CollectionManager collectionManager) {
-        if (args.length != 11) {
-            System.out.println("Неверный ввод данных");
-        } else {
-            Parser parser = new Parser();
+        if (args.length != 12) {
+            throw new ArgExeption();
+            // System.out.println("Неверный ввод данных");
+        }
+        Parser parser = new Parser();
 
-            SpaceMarine spacemar;
+        SpaceMarine spacemar;
+        try {
             spacemar = parser.parsSpaceMarine(args);
-            if (collectionManager.getCollection().get(spacemar.getId()).compareTo(spacemar) > 0) {
-                collectionManager.swapElement(spacemar, spacemar.getId());
-            }
+        } catch (Exception e) {
+            System.out.println("ошибка ввода данных");
+            return;
+        }
+        if (collectionManager.getCollection().get(spacemar.getId()).compareTo(spacemar) > 0) {
+            collectionManager.swapElement(spacemar, spacemar.getId());
         }
     }
     public String getComandInfo() {

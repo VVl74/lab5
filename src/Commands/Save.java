@@ -1,6 +1,8 @@
 package Commands;
 
 import Collection.SpaceMarine;
+import Exeptions.ArgExeption;
+import Exeptions.RecordExeption;
 import Managers.CollectionManager;
 
 import java.io.BufferedWriter;
@@ -24,25 +26,25 @@ public class Save implements Command {
                 for (int i : keys) {
                     SpaceMarine spaceMarine = spaceMarineHashMap.get(i);
 
-                    String str = spaceMarine.getId() + ";" + spaceMarine.getName() +
+                    String str = spaceMarine.getName() +
                             ";" + spaceMarine.getCoordinates().getX() + ";" + spaceMarine.getCoordinates().getY() +
-                            ";" + spaceMarine.spaceGetTime() + ";" + spaceMarine.getHealth() + ";" +
+                            ";" + spaceMarine.getHealth() + ";" +
                             spaceMarine.getCategory() + ";" + spaceMarine.getWeaponType() + ";" +
                             spaceMarine.getMeleeWeapon() + ";" + spaceMarine.getChapter().getName() + ";" +
                             spaceMarine.getChapter().getParentLegion() + ";" + spaceMarine.getChapter().getMarinesCount() + ";" +
-                            spaceMarine.getChapter().getWorld();
+                            spaceMarine.getChapter().getWorld() + "\n";
 
                     bufwriter.write(str);
 
                 }
-            } catch(IOException exep) {
-                System.out.println("файла нет либо запись не удалась");
+            } catch(Exception e) {
+                throw new RecordExeption();
             }
 
 
 
         } else {
-            System.out.println("неверный формат ввода");
+            throw new ArgExeption();
         }
     }
 

@@ -1,25 +1,35 @@
 package Commands;
 
 import Collection.SpaceMarine;
+import Exeptions.ArgExeption;
+import Exeptions.InputExeption;
 import Managers.CollectionManager;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Set;
+import java.util.*;
 
 public class RemoveLowerKeyNull implements Command {
     public void execute(String[] args, CollectionManager collectionManager) {
         if (args.length > 1) {
-            System.out.println("слишком много аргументов");
-        } else {
-            int id = Integer.parseInt(args[0]);
+            throw new ArgExeption();
+        }
+        int id;
+        try {
+            id = Integer.parseInt(args[0]);
+        } catch (Exception e) {
+            throw new InputExeption();
+        }
 
-            Set<Integer> mapValues = collectionManager.getCollection().keySet();
-            for (var v : mapValues) {
-                if (v < id) {
-                    collectionManager.getCollection().remove(id);
-                }
+        List<Integer> removeList = new ArrayList<>();
+
+        Set<Integer> mapValues = collectionManager.getCollection().keySet();
+        for (var v : mapValues) {
+            if (v < id) {
+                removeList.add(v);
             }
+        }
+
+        for (var k: removeList) {
+            collectionManager.removeElement(k);
         }
     }
     public String getComandInfo() {

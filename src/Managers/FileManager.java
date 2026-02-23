@@ -1,6 +1,9 @@
 package Managers;
 
 import Collection.*;
+import Exeptions.ArgExeption;
+import Exeptions.InputExeption;
+import Exeptions.ReadExeption;
 
 import java.io.*;
 import java.time.LocalDateTime;
@@ -23,13 +26,26 @@ public class FileManager {
 
             String input;
 
-            while ((input = reader.readLine()) != null) {
-                SpaceMarine newmarine = parserMar(input);
+            while (true) {
+                input = reader.readLine();
+
+                if (input == null) {
+                    break;
+                }
+                SpaceMarine newmarine;
+
+                try {
+                    newmarine = parserMar(input);
+                } catch (Exception e) {
+                    throw new InputExeption();
+                }
+
                 spaceMarineHashMap.put(newmarine.getId(), newmarine);
                 id++;
             }
         } catch(IOException exep) {
-            System.out.println("с файлом что то не то " + exep.getMessage());
+            throw new ReadExeption(exep.getMessage());
+            // System.out.println("с файлом что то не то " + exep.getMessage());
         }
 
         return spaceMarineHashMap;
@@ -43,7 +59,12 @@ public class FileManager {
             String input;
 
 
-            while((input = reader.readLine()) != null) {
+            while(true) {
+                input = reader.readLine();
+
+                if (input == null) {
+                    break;
+                }
                 args.add(input);
             }
         } catch(IOException exep) {
@@ -54,36 +75,40 @@ public class FileManager {
     }
 
     public SpaceMarine parserMar(String str) {
-        String[] elem = str.split(";");
+        try {
+            String[] elem = str.split(";");
 
-        int nid = id;
-        String name = elem[0];
-        float x = Float.parseFloat(elem[1]);
-        Long y = (long) Integer.parseInt(elem[2]);
+            int nid = id;
+            String name = elem[0];
+            float x = Float.parseFloat(elem[1]);
+            Long y = (long) Integer.parseInt(elem[2]);
 
-        Coordinates cord = new Coordinates(x, y);
+            Coordinates cord = new Coordinates(x, y);
 
-        LocalDateTime ndate = LocalDateTime.now();
+            LocalDateTime ndate = LocalDateTime.now();
 
-        double health = (double) Float.parseFloat(elem[3]);
+            double health = (double) Float.parseFloat(elem[3]);
 
-        AstartesCategory nc =  AstartesCategory.valueOf(elem[4]);
+            AstartesCategory nc = AstartesCategory.valueOf(elem[4]);
 
-        Weapon nweapon = Weapon.valueOf(elem[5]);
+            Weapon nweapon = Weapon.valueOf(elem[5]);
 
-        MeleeWeapon nmeleeweapon = MeleeWeapon.valueOf(elem[6]);
+            MeleeWeapon nmeleeweapon = MeleeWeapon.valueOf(elem[6]);
 
-        String nchaptername = elem[7];
-        String nparentlegion = elem[8];
+            String nchaptername = elem[7];
+            String nparentlegion = elem[8];
 
-        Long marinescount = (long) Integer.parseInt(elem[9]);
+            Long marinescount = (long) Integer.parseInt(elem[9]);
 
-        String world = elem[10];
+            String world = elem[10];
 
-        Chapter marinchapt = new Chapter(nchaptername, nparentlegion, marinescount, world);
+            Chapter marinchapt = new Chapter(nchaptername, nparentlegion, marinescount, world);
 
-        SpaceMarine spacemar = new SpaceMarine(nid, name, cord, ndate, health, nc, nweapon, nmeleeweapon, marinchapt);
+            SpaceMarine spacemar = new SpaceMarine(nid, name, cord, ndate, health, nc, nweapon, nmeleeweapon, marinchapt);
 
-        return spacemar;
+            return spacemar;
+        } catch (Exception e) {
+            throw new InputExeption();
+        }
     }
 }

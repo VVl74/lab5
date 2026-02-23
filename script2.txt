@@ -1,0 +1,7 @@
+insert 1 Ultramarine 12.5 7 150 ASSAULT BOLTGUN CHAIN_SWORD Ultramar Guilliman 500 Macragge
+insert 2 BloodAngel 5.2 3 120 ASSAULT BOLTGUN CHAIN_SWORD Baal Sanguinius 300 Baal
+insert 3 DarkAngel 8.1 4 110 ASSAULT BOLTGUN CHAIN_SWORD Caliban Lion 250 Caliban
+
+update 2 BloodAngel 6.0 5 130 ASSAULT BOLTGUN CHAIN_SWORD Baal Sanguinius 350 Baal
+
+remove_key 1
