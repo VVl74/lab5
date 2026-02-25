@@ -44,6 +44,7 @@ public class ExecuteScriptFileName implements Command {
             }
             collection.scriptRemove(filename);
         }
+        System.out.println("Скрипт выполнен\n");
     }
 
     public String getComandInfo() {

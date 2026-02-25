@@ -11,6 +11,8 @@ public class RemoveKeyNull implements Command {
         }
         int id = Integer.parseInt(args[0]);
         collectionManager.removeElement(id);
+
+        System.out.println("элемент удален\n");
     }
     public String getComandInfo() {
         return "remove_key null : удалить элемент из коллекции по его ключу\n";

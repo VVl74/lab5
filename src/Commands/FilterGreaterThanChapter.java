@@ -32,6 +32,7 @@ public class FilterGreaterThanChapter implements Command {
             }
         }
 
+        System.out.println("все элементы с Chapter > заданного выведены\n");
     }
     public String getComandInfo() {
         return "filter_greater_than_chapter chapter : вывести элементы, " +

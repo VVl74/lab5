@@ -29,6 +29,8 @@ public class FilterLessThanChapter implements Command {
                 System.out.println(collectionManager.getCollection().get(v));
             }
         }
+
+        System.out.println("все элементы с Chapter < заданного выведены\n");
     }
     public String getComandInfo() {
         return "filter_less_than_chapter chapter : вывести элементы, значение поля" +

@@ -32,7 +32,8 @@ public class CountLessThanHealth implements Command {
                 sh++;
             }
         }
-        System.out.println(sh);
+        System.out.println("колво элементов:" + sh);
+        System.out.println("элементы посчитаны\n");
     }
     public String getComandInfo() {
         return "count_less_than_health: вывести количество элементов," +

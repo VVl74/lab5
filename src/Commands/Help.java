@@ -17,6 +17,8 @@ public class Help implements Command {
         for(String i: keys) {
             System.out.println(commandHashMap.get(i).getComandInfo());
         }
+
+        System.out.println("все команды выведены\n");
     }
     public String getComandInfo() {
         return "help : вывести справку по доступным командам\n";

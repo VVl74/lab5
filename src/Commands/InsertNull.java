@@ -20,6 +20,8 @@ public class InsertNull implements Command {
             return;
         }
         collectionManager.inputElement(spacemar);
+
+        System.out.println("элемент добавлен\n");
     }
     public String getComandInfo() {
         return "insert null {element} : добавить новый элемент с заданным ключом\n";

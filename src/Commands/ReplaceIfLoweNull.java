@@ -22,6 +22,9 @@ public class ReplaceIfLoweNull implements Command {
         }
         if (collectionManager.getCollection().get(spacemar.getId()).compareTo(spacemar) > 0) {
             collectionManager.swapElement(spacemar, spacemar.getId());
+            System.out.println("элемент обновлен\n");
+        } else {
+            System.out.println("элемент не обновлен\n");
         }
     }
     public String getComandInfo() {

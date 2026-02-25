@@ -19,6 +19,8 @@ public class UpdateId implements Command {
             return;
         }
         collectionManager.swapElement(spacemar, spacemar.getId());
+
+        System.out.println("элемент обновлен\n");
     }
     public String getComandInfo() {
         return "update id {element} : обновить значение элемента коллекции," +

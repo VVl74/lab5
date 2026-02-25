@@ -31,6 +31,8 @@ public class RemoveLowerKeyNull implements Command {
         for (var k: removeList) {
             collectionManager.removeElement(k);
         }
+
+        System.out.println("все элементы чей ключ < заданного удалены\n");
     }
     public String getComandInfo() {
         return "remove_lower_key null : удалить из коллекции все элементы, " +

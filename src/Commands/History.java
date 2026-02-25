@@ -16,6 +16,8 @@ public class History implements Command {
         for (int i = max(history.toArray().length - 14, 0); i < history.toArray().length; i++) {
             System.out.println(history.get(i));
         }
+
+        System.out.println("история команд выведена\n");
     }
 
     @Override

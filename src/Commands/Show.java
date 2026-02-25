@@ -14,6 +14,8 @@ public class Show implements Command {
         for (var v: mapValues) {
             System.out.println(v);
         }
+
+        System.out.println("элементы коллекции выведены\n");
     }
 
     public  String getComandInfo() {

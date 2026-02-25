@@ -6,6 +6,7 @@ import Exeptions.RecordExeption;
 import Managers.CollectionManager;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
@@ -35,8 +36,13 @@ public class Save implements Command {
                             spaceMarine.getChapter().getWorld() + "\n";
 
                     bufwriter.write(str);
+                    bufwriter.flush();
 
                 }
+                System.out.println(System.getProperty("user.dir"));
+                System.out.println(new File(filename).getAbsolutePath());
+
+                System.out.println("коллекция сохранена\n");
             } catch(Exception e) {
                 throw new RecordExeption();
             }
