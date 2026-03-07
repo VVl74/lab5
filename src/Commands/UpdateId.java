@@ -24,6 +24,7 @@ public class UpdateId implements Command {
     }
     public String getComandInfo() {
         return "update id {element} : обновить значение элемента коллекции," +
-                " id которого равен заданному\n";
+                " id которого равен заданному передать элемент необходимо в формате" +
+                "аналогичном InsertNull\n";
     }
 }

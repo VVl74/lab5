@@ -36,6 +36,7 @@ public class FilterGreaterThanChapter implements Command {
     }
     public String getComandInfo() {
         return "filter_greater_than_chapter chapter : вывести элементы, " +
-                "значение поля chapter которых больше заданного\n";
+                "значение поля chapter которых больше заданного\n" +
+                "сравнение идет по полю marines_count";
     }
 }

@@ -24,6 +24,12 @@ public class InsertNull implements Command {
         System.out.println("элемент добавлен\n");
     }
     public String getComandInfo() {
-        return "insert null {element} : добавить новый элемент с заданным ключом\n";
+        // insert 500 Ultramarine 12.5 7 150 ASSAULT BOLTGUN CHAIN_SWORD Ultramar Guilliman 500 Macragge
+        return "insert {element} : добавить новый элемент с заданным ключом аргументы необходимо" +
+                "вводить через пробел в следующем порядке:" +
+                " (int)id (string)name (Float)cordX (Long)cordY (Float)Health \n" +
+                "Weapon из списка:(BOLTGUN,MELTAGUN,FLAMER, HEAVY_FLAMER)\n" +
+                "MeleeWeapon из списка: (CHAIN_SWORD, POWER_SWORD,CHAIN_AXE,MANREAPER, POWER_FIST)\n" +
+                "(string)name_legion (string)commander_legion (int)marinesCount (string)название планеты  \n";
     }
 }

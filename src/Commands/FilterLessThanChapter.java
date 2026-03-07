@@ -34,6 +34,7 @@ public class FilterLessThanChapter implements Command {
     }
     public String getComandInfo() {
         return "filter_less_than_chapter chapter : вывести элементы, значение поля" +
-                " chapter которых меньше заданного\n";
+                " chapter которых меньше заданного\n" +
+                "сравнение идет по полю marines_count";
     }
 }

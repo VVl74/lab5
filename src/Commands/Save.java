@@ -56,6 +56,6 @@ public class Save implements Command {
 
     @Override
     public String getComandInfo() {
-        return "save : сохранить коллекцию в файл\n";
+        return "save : сохранить коллекцию в файл необходимо передать название\n";
     }
 }
