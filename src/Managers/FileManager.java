@@ -37,7 +37,8 @@ public class FileManager {
                 try {
                     newmarine = parserMar(input);
                 } catch (Exception e) {
-                    throw new InputExeption();
+                    System.out.println("Считать строку не удалось");
+                    continue;
                 }
 
                 spaceMarineHashMap.put(newmarine.getId(), newmarine);
