@@ -3,8 +3,13 @@ import Exeptions.CommandExeption;
 import Managers.CollectionManager;
 import Managers.CommandManager;
 import Managers.FileManager;
+import org.jline.reader.LineReader;
+import org.jline.reader.LineReaderBuilder;
+import org.jline.terminal.Terminal;
+import org.jline.terminal.TerminalBuilder;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -31,17 +36,37 @@ public class Main {
 
         CollectionManager collectionManager = new CollectionManager(newCollection);
 
-        Scanner scanner = new Scanner(System.in);
+        // Scanner scanner = new Scanner(System.in);
+
+        Terminal terminal = null;
+
+        try {
+            terminal = TerminalBuilder.builder().system(true).build();
+        } catch (Exception e) {
+            throw new RuntimeException();
+        }
+
+        LineReader reader = LineReaderBuilder.builder().terminal(terminal).build();
 
         CommandManager curCommandManager = new CommandManager(collectionManager);
 
         while (true) {
+            String input = null;
+            try {
+                input = reader.readLine();
+            } catch (Exception e) {
+                System.out.println("ввод завершен");
+            }
+            /*
             if (!scanner.hasNextLine()) {
                 System.out.println("Ввод завершен");
                 break;
             }
             String input = scanner.nextLine();
-
+            */
+            if (input == null) {
+                continue;
+            }
             String[] parts = input.split(" ");
 
             try {
