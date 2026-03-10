@@ -35,7 +35,7 @@ public class RemoveLowerKeyNull implements Command {
         System.out.println("все элементы чей ключ < заданного удалены\n");
     }
     public String getComandInfo() {
-        return "remove_lower_key null : удалить из коллекции все элементы, " +
+        return "remove_lower_key key (int) : удалить из коллекции все элементы, " +
                 "ключ которых меньше, чем заданный\n";
     }
 }

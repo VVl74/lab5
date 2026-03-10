@@ -36,7 +36,7 @@ public class CountLessThanHealth implements Command {
         System.out.println("элементы посчитаны\n");
     }
     public String getComandInfo() {
-        return "count_less_than_health: вывести количество элементов," +
-                " значение поля health которых меньше заданного\n";
+        return "count_less_than_health health (double) : вывести количество элементов, "
+                + "значение поля health которых меньше заданного\n";
     }
 }

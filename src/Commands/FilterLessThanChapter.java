@@ -33,8 +33,9 @@ public class FilterLessThanChapter implements Command {
         System.out.println("все элементы с Chapter < заданного выведены\n");
     }
     public String getComandInfo() {
-        return "filter_less_than_chapter chapter : вывести элементы, значение поля" +
-                " chapter которых меньше заданного\n" +
-                "сравнение идет по полю marines_count";
+        return "filter_greater_than_chapter chapter : вывести элементы, значение поля chapter которых меньше заданного\n" +
+                "сравнение производится по полю marinesCount\n" +
+                "chapter вводится через пробел в следующем порядке:\n" +
+                "(string) name (string) parentLegion (long) marinesCount (string) world\n";
     }
 }

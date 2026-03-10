@@ -28,9 +28,8 @@ public class ReplaceIfLoweNull implements Command {
         }
     }
     public String getComandInfo() {
-        return "replace_if_lowe null {element} : заменить значение по ключу," +
-                " если новое значение меньше старого\n" +
-                "сравнение идет по количеству здоровья элемент необходимо передать" +
-                " в том же формате что и в InsertNull\n";
+        return "replace_if_lower key {element} : заменить значение по ключу, если новое значение меньше старого\n" +
+                "сравнение производится по полю health\n" +
+                "элемент необходимо передать в том же формате, что и в команде insert\n";
     }
 }

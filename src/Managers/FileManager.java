@@ -2,6 +2,7 @@ package Managers;
 
 import Collection.*;
 import Exeptions.ArgExeption;
+import Exeptions.FileExeption;
 import Exeptions.InputExeption;
 import Exeptions.ReadExeption;
 
@@ -79,8 +80,21 @@ public class FileManager {
         try {
             String[] elem = str.split(";");
 
+            if (elem.length != 11) {
+                throw new FileExeption("неверное число аргументов");
+            }
+
+            for (int i=0; i < elem.length; i++) {
+                elem[i] = elem[i].trim();
+            }
+
             int nid = id;
             String name = elem[0];
+
+            if (name.isEmpty()) {
+                throw new FileExeption("имя не может быть пустым");
+            }
+
             float x = Float.parseFloat(elem[1]);
             Long y = (long) Integer.parseInt(elem[2]);
 
@@ -90,16 +104,25 @@ public class FileManager {
 
             double health = (double) Float.parseFloat(elem[3]);
 
-            AstartesCategory nc = AstartesCategory.valueOf(elem[4]);
+            if (Double.isNaN(health) || health < 0) {
+                throw new FileExeption("здоровье не может быть NaN или < 0");
+            }
 
-            Weapon nweapon = Weapon.valueOf(elem[5]);
+            AstartesCategory nc = AstartesCategory.valueOf(elem[4].toUpperCase());
 
-            MeleeWeapon nmeleeweapon = MeleeWeapon.valueOf(elem[6]);
+            Weapon nweapon = Weapon.valueOf(elem[5].toUpperCase());
+
+            MeleeWeapon nmeleeweapon = MeleeWeapon.valueOf(elem[6].toUpperCase());
 
             String nchaptername = elem[7];
             String nparentlegion = elem[8];
 
+
             Long marinescount = (long) Integer.parseInt(elem[9]);
+
+            if (marinescount <= 0 || marinescount > 1000) {
+                throw new FileExeption("неверныая численность");
+            }
 
             String world = elem[10];
 

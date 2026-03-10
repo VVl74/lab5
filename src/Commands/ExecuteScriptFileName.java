@@ -48,7 +48,7 @@ public class ExecuteScriptFileName implements Command {
     }
 
     public String getComandInfo() {
-        return "execute_script file_name : считать и исполнить скрипт из указанного файла. " +
+        return "execute_script file_name (string) : считать и исполнить скрипт из указанного файла. " +
                 "В скрипте содержатся команды в таком же виде, в котором их вводит пользователь" +
                 " в интерактивном режиме.\n";
 
