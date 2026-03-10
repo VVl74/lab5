@@ -4,7 +4,10 @@ import Collection.SpaceMarine;
 import Managers.CollectionManager;
 
 import java.util.HashMap;
-
+/**
+ * Комманда для удаления всех элементов коллекции
+ *
+ */
 public class Clear implements Command {
     public void execute(String[] args, CollectionManager collectionManager) {
         collectionManager.getCollection().clear();

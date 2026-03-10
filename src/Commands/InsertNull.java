@@ -4,7 +4,10 @@ import Collection.*;
 import Exeptions.ArgExeption;
 import Managers.CollectionManager;
 import Utils.Parser;
-
+/**
+ * Комманда для добавления элемента в коллекцию
+ *
+ */
 public class InsertNull implements Command {
     public void execute(String[] args, CollectionManager collectionManager) {
         if (args.length != 12) {

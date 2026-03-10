@@ -4,8 +4,18 @@ import Collection.*;
 import Exeptions.InputExeption;
 
 import java.time.LocalDateTime;
-
+/**
+ * Класс по сути билдер более сложных штук
+ */
 public class Parser {
+    /**
+     * Начало парсера
+     *  <ol>
+     *      <li> получаем массив с данными для SpaceMarine </li>
+     *      <li> считываем и валидируем их </li>
+     *      <li> возвращаем собранный элемент </li>
+     *  </ol>
+     */
     public SpaceMarine parsSpaceMarine(String[] args) {
         try {
             int nid = Integer.parseInt(args[0]);
@@ -40,6 +50,14 @@ public class Parser {
             throw new InputExeption();
         }
     }
+    /**
+     * Начало парсера
+     *  <ol>
+     *      <li> получаем массив с данными для Chapter </li>
+     *      <li> считываем и валидируем их </li>
+     *      <li> возвращаем собранный элемент </li>
+     *  </ol>
+     */
     public Chapter parseChapter(String[] args) {
         try {
             String s1 = args[0];

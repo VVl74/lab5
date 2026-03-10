@@ -10,7 +10,16 @@ import java.io.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
-
+/**
+ * Класс для работы с файломи
+ * <p>
+ *  Функции класса
+ *  <ul>
+ *      <li> Чтение данных из файла
+ *      <li> Собирание данных из файлов в коллекцию
+ *      <li> чтение команд из файла
+ * </ul>
+ */
 public class FileManager {
     private static int id = 1;
     public String filename;
@@ -19,6 +28,16 @@ public class FileManager {
         filename = name;
     }
 
+
+    /**
+     * Читатель изначальной коллекции
+     *  <ol>
+     *      <li> читаем файл с данными </li>
+     *      <li> собираем их в спейсмаринов </li>
+     *      <li> собираем спейсмаринов в мапу </li>
+     *      <li> возвращаем мапу спейсмаринов </li>
+     *  </ol>
+     */
     public HashMap<Integer, SpaceMarine> fileRead() throws FileNotFoundException {
         HashMap <Integer, SpaceMarine> spaceMarineHashMap = new HashMap<>();
 
@@ -53,6 +72,15 @@ public class FileManager {
         return spaceMarineHashMap;
     }
 
+    /**
+     * Читатель команд
+     *  <ol>
+     *      <li> читаем файл с командами </li>
+     *      <li> закидываем команду в массив </li>
+     *      <li> возвращаем массив команд </li>
+     *  </ol>
+     */
+
     public ArrayList<String> commandRead() throws FileNotFoundException {
         ArrayList<String> args = new ArrayList<>();
         try (InputStreamReader bufreader = new InputStreamReader(new FileInputStream(filename))) {
@@ -76,6 +104,14 @@ public class FileManager {
         return args;
     }
 
+    /**
+     * Билдер спейсмарина из строки
+     *  <ol>
+     *      <li> получаем массив с данными для SpaceMarine </li>
+     *      <li> считываем и валидируем их </li>
+     *      <li> возвращаем собранный элемент </li>
+     *  </ol>
+     */
     public SpaceMarine parserMar(String str) {
         try {
             String[] elem = str.split(";");

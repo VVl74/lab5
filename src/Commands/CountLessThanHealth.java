@@ -8,7 +8,10 @@ import Managers.CollectionManager;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Set;
-
+/**
+ * Комманда для выведения всех элементов чье здоровье меньше заданного
+ *
+ */
 public class CountLessThanHealth implements Command {
     public void execute(String[] args, CollectionManager collectionManager) {
         if (args.length > 1) {

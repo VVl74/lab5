@@ -11,7 +11,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Set;
-
+/**
+ * Комманда для сохранения всех элементов коллекции в файл
+ *
+ */
 public class Save implements Command {
     @Override
     public void execute(String[] args, CollectionManager collectionManager) {

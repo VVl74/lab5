@@ -1,5 +1,8 @@
 package Collection;
-
+/**
+ * Енам основного оружия космодесантника
+ *
+ */
 public enum Weapon {
     BOLTGUN,
     MELTAGUN,

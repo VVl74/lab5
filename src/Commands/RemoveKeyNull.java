@@ -2,7 +2,10 @@ package Commands;
 
 import Exeptions.ArgExeption;
 import Managers.CollectionManager;
-
+/**
+ * Комманда для удаления элемента из коллекции по ключу
+ *
+ */
 public class RemoveKeyNull implements Command {
     public void execute(String[] args, CollectionManager collectionManager) {
         if (args.length !=1) {

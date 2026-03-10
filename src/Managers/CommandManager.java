@@ -7,7 +7,17 @@ import Exeptions.CommandExeption;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-
+/**
+ * Ключевой класс приложения отвечающий за работу с командами
+ * <p>
+ *  Функции класса
+ *  <ul>
+ *      <li> Хранение списка команд </li>
+ *      <li> Валидирование и вызов нужных команд </li>
+ *      <li> Обработка ошибок </li>
+ *      <li> Хранение истории команд </li>
+ * </ul>
+ */
 public class CommandManager {
     public HashMap<String, Command> commandHashMap = new HashMap<>();
     public CollectionManager collectionManager;
@@ -33,6 +43,18 @@ public class CommandManager {
         commandHashMap.put("filter_greater_than_chapter", new FilterGreaterThanChapter());
     }
 
+    /**
+     * Метод непосредственно обрабатывающий полученную команду
+     * <p>
+     *  Функции класса
+     *  <ul>
+     *      <li> Получение строки с командой и ее аргументами </li>
+     *      <li> выделение команды и аргументов </li>
+     *      <li> Валидирование команды  </li>
+     *      <li> Вызов полученной команды </li>
+     *      <li> Добавление вызванной команды в историю </li>
+     * </ul>
+     */
     public void newCommand(String[] args) {
         String com = args[0];
 

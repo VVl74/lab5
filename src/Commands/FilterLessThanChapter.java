@@ -9,7 +9,10 @@ import Utils.Parser;
 
 import java.util.HashMap;
 import java.util.Set;
-
+/**
+ * Комманда для выведения всех элементов чей Chapter меньше заданного
+ *
+ */
 public class FilterLessThanChapter implements Command {
     public void execute(String[] args, CollectionManager collectionManager) {
         if (args.length !=4) {

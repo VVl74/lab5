@@ -4,7 +4,10 @@ import Collection.SpaceMarine;
 import Exeptions.ArgExeption;
 import Managers.CollectionManager;
 import Utils.Parser;
-
+/**
+ * Комманда замены элемента если его здоровье меньше чем текущего
+ *
+ */
 public class ReplaceIfLoweNull implements Command {
     public void execute(String[] args, CollectionManager collectionManager) {
         if (args.length != 12) {

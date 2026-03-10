@@ -5,7 +5,10 @@ import Managers.CollectionManager;
 import java.util.ArrayList;
 
 import static java.lang.Math.max;
-
+/**
+ * Комманда для выведения последних 14 команд
+ *
+ */
 public class History implements Command {
     ArrayList<String> history;
     public History(ArrayList<String> commandHistory) {

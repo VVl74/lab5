@@ -6,7 +6,10 @@ import Exeptions.InputExeption;
 import Managers.CollectionManager;
 
 import java.util.*;
-
+/**
+ * Комманда для удаления всеъ элементов чей улюч меньше заданного
+ *
+ */
 public class RemoveLowerKeyNull implements Command {
     public void execute(String[] args, CollectionManager collectionManager) {
         if (args.length > 1) {

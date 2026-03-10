@@ -1,5 +1,8 @@
 package Collection;
-
+/**
+ * Класс ордена космодесантника
+ *
+ */
 public class Chapter implements Comparable<Chapter> {
     private String name; //Поле не может быть null, Строка не может быть пустой
     private String parentLegion;

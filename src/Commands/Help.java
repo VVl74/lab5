@@ -4,7 +4,10 @@ import Managers.CollectionManager;
 
 import java.util.HashMap;
 import java.util.Set;
-
+/**
+ * Комманда для выведения справки по всем командам
+ *
+ */
 public class Help implements Command {
     private HashMap<String, Command> commandHashMap;
 

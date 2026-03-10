@@ -4,7 +4,10 @@ import Collection.SpaceMarine;
 import Exeptions.ArgExeption;
 import Managers.CollectionManager;
 import Utils.Parser;
-
+/**
+ * Комманда для обновления элемента на новый по заданному ID
+ *
+ */
 public class UpdateId implements Command {
     public void execute(String[] args, CollectionManager collectionManager) {
         if (args.length != 12) {

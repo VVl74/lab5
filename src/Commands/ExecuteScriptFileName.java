@@ -8,6 +8,10 @@ import Managers.FileManager;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+/**
+ * Комманда для запуска скрипта с командами
+ *
+ */
 
 public class ExecuteScriptFileName implements Command {
 

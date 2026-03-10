@@ -1,5 +1,8 @@
 package Collection;
-
+/**
+ * Енам оружия ближнего боя космодесантника
+ *
+ */
 public enum MeleeWeapon {
     CHAIN_SWORD,
     POWER_SWORD,

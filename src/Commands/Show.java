@@ -7,7 +7,10 @@ import Managers.CommandManager;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-
+/**
+ * Комманда для выведения всех элементов коллекции
+ *
+ */
 public class Show implements Command {
     public void execute(String[] args, CollectionManager collectionManager) {
         Collection<SpaceMarine> mapValues = collectionManager.getCollection().values();

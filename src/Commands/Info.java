@@ -1,7 +1,10 @@
 package Commands;
 
 import Managers.CollectionManager;
-
+/**
+ * Комманда для выведения информации о коллекции
+ *
+ */
 public class Info implements Command {
     public void execute(String[] args, CollectionManager collectionManager) {
         System.out.println("Тип коллекции: " + collectionManager.getCollection().getClass().getName() +
