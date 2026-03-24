@@ -12,3 +12,5 @@ replace_if_lowe 6 Ultramarine 12.5 7 50 ASSAULT BOLTGUN CHAIN_SWORD Ultramar Gui
 history
 save 12345.csv
 replace_if_lowe 123 Ultramarine 12.5 7 50 ASSAULT BOLTGUN CHAIN_SWORD Ultramar Guilliman 500 Macragge
+insert 20 Daniloffe 20.1 30 100 ASSAULT BOLTGUN CHAIN_SWORD Aboba Shura 500 Israil
+insert 500 Ultramarine 12.5 7 150 ASSAULT BOLTGUN CHAIN_SWORD Ultramar Guilliman 500 Macragge
