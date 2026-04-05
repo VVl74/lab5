@@ -11,6 +11,7 @@ import org.jline.terminal.TerminalBuilder;
 
 import java.io.*;
 import java.net.*;
+import java.nio.Buffer;
 import java.nio.ByteBuffer;
 import java.nio.channels.DatagramChannel;
 import java.nio.channels.ServerSocketChannel;
@@ -74,11 +75,25 @@ public class Main {
 
             String input = null;
 
+            // ByteBuffer vvodBuf = ByteBuffer.allocate(16384);
+
             if (client != null) {
                 buf.flip();
-                String prs = new String(buf.array(), 0, buf.limit());
 
-                input = prs;
+                ObjectMapper mapper = new ObjectMapper();
+
+                byte[] data = new byte[buf.limit()];
+
+                buf.get(data);
+
+                Wrapper prvvod = mapper.readValue(data, Wrapper.class);
+
+                input  = prvvod.getZapr();
+
+
+                // String prs = new String(buf.array(), 0, buf.limit());
+
+                // input = prs;
                 if (input == null) {
                     continue;
                 }
@@ -105,8 +120,6 @@ public class Main {
 
                 Wrapper res = new Wrapper();
                 res.setZapr(prStr);
-
-                ObjectMapper mapper = new ObjectMapper();
 
                 byte[] jsonByte = mapper.writeValueAsBytes(res);
 
