@@ -1,17 +1,16 @@
-import Collection.SpaceMarine;
-import Exeptions.CommandExeption;
-import Managers.CollectionManager;
-import Managers.CommandManager;
-import Managers.FileManager;
+package Client;
+
+import Utils.Wrapper;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.jline.reader.LineReader;
 import org.jline.reader.LineReaderBuilder;
 import org.jline.terminal.Terminal;
 import org.jline.terminal.TerminalBuilder;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Scanner;
+import java.net.InetSocketAddress;
+import java.net.SocketAddress;
+import java.nio.ByteBuffer;
+import java.nio.channels.DatagramChannel;
 
 /**
  * Главный класс приложения отвечающий за запуск работы с коллекциями
@@ -24,7 +23,7 @@ import java.util.Scanner;
  *      <li> Обработка некоторых ошибок </li>
  * </ul>
  */
-public class Main {
+public class Client {
     /**
      * Начало программы
      *  <ol>
@@ -36,24 +35,6 @@ public class Main {
      */
     public static void main(String[] args) {
 
-        String filename = "data.csv";
-
-        FileManager fileManager = new FileManager();
-
-        fileManager.setFilename(filename);
-
-        HashMap <Integer, SpaceMarine> newCollection = new HashMap<>();
-
-        try {
-            newCollection = fileManager.fileRead();
-        } catch (Exception e) {
-            System.out.println("не удалось прочитать файл");
-        }
-
-        CollectionManager collectionManager = new CollectionManager(newCollection);
-
-        // Scanner scanner = new Scanner(System.in);
-
         Terminal terminal = null;
 
         try {
@@ -64,7 +45,6 @@ public class Main {
 
         LineReader reader = LineReaderBuilder.builder().terminal(terminal).build();
 
-        CommandManager curCommandManager = new CommandManager(collectionManager);
 
         while (true) {
             String input = null;
@@ -73,23 +53,53 @@ public class Main {
             } catch (Exception e) {
                 System.out.println("ввод завершен");
             }
-            /*
-            if (!scanner.hasNextLine()) {
-                System.out.println("Ввод завершен");
-                break;
-            }
-            String input = scanner.nextLine();
-            */
+
             if (input == null) {
                 continue;
             }
             String[] parts = input.split(" ");
 
             try {
-                curCommandManager.newCommand(parts);
+                DatagramChannel channel = DatagramChannel.open();
+                channel.configureBlocking(false);
+
+                InetSocketAddress serverAdress = new InetSocketAddress("localhost", 12345);
+
+                ByteBuffer sendBuf = ByteBuffer.wrap((input).getBytes());
+
+                channel.send(sendBuf, serverAdress);
+
+                ByteBuffer vvodBuf = ByteBuffer.allocate(16384);
+
+                SocketAddress from = null;
+
+                while(true) {
+                    from = channel.receive(vvodBuf);
+
+                    if (from != null) {
+                        break;
+                    }
+
+                    Thread.sleep(100);
+                }
+
+                vvodBuf.flip();
+
+                byte[] data = new byte[vvodBuf.limit()];
+
+                vvodBuf.get(data);
+
+                ObjectMapper mapper = new ObjectMapper();
+
+                Wrapper prvvod = mapper.readValue(data, Wrapper.class);
+
+                String itog  = prvvod.getZapr();
+
+                System.out.println(itog);
             } catch (Exception e) {
-                System.out.println("Ошибка, команда не выполнена");
+                System.out.println("Ошибка, команда не выполнена "  + e.getMessage());
             }
         }
     }
 }
+
