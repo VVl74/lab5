@@ -5,6 +5,8 @@ import Exeptions.RecursExeption;
 import Managers.CollectionManager;
 import Managers.CommandManager;
 import Managers.FileManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -16,6 +18,7 @@ import java.util.ArrayList;
 public class ExecuteScriptFileName implements Command {
 
     public void execute(String[] args, CollectionManager collection) {
+        Logger logger = LoggerFactory.getLogger(ExecuteScriptFileName.class);
         if (args.length > 1 || args.length == 0) {
             throw  new ArgExeption();
             // System.out.println("не правильный формат ввода");
@@ -37,6 +40,7 @@ public class ExecuteScriptFileName implements Command {
             commands = fileManager.commandRead();
         } catch (FileNotFoundException e) {
             System.out.println("имя файла неверно или файл не читаем");
+            logger.info("имя файла неверно или файл не читаем");
         }
 
         CommandManager commandManager = new CommandManager(collection);
@@ -49,6 +53,7 @@ public class ExecuteScriptFileName implements Command {
             collection.scriptRemove(filename);
         }
         System.out.println("Скрипт выполнен\n");
+        logger.info("Скрипт выполнен");
     }
 
     public String getComandInfo() {

@@ -69,6 +69,7 @@ public class SpaceMarine implements Comparable<SpaceMarine> {
 
     @Override
     public String toString() {
-        return "id= " + id + " name= " + name + " health= " + health + " chapter= " + chapter.getName();
+        return "id= " + id + " name= " + name + " health= " + health + " chapter= "
+                + chapter.getName() + " world = " + chapter.getWorld();
     }
 }

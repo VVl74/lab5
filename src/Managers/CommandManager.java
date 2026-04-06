@@ -3,6 +3,8 @@ package Managers;
 import Commands.*;
 import Exeptions.ArgExeption;
 import Exeptions.CommandExeption;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,6 +21,7 @@ import java.util.HashMap;
  * </ul>
  */
 public class CommandManager {
+    Logger logger = LoggerFactory.getLogger(CommandManager.class);
     public HashMap<String, Command> commandHashMap = new HashMap<>();
     public CollectionManager collectionManager;
     ArrayList<String> commandHistory = new ArrayList<String>();
@@ -62,13 +65,16 @@ public class CommandManager {
 
         if (commandHashMap.containsKey(com)) {
             try {
+                logger.info("команда выполняется");
                 commandHashMap.get(com).execute(commandArgs, collectionManager);
             } catch (ArgExeption e) {
-                System.out.println("Ошибка, команда не выполнена");
+                logger.info("ошибка, команда не выполнена");
+                // System.out.println("Ошибка, команда не выполнена");
             }
             commandHistory.add(com);
         } else {
-            System.out.println("неизвестная команда");
+            logger.info("неизвестная команда");
+            // System.out.println("неизвестная команда");
         }
     }
 }

@@ -6,7 +6,11 @@ import Managers.CommandManager;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.stream.Collectors;
+
+import Collection.Chapter;
 /**
  * Комманда для выведения всех элементов коллекции
  *
@@ -14,7 +18,14 @@ import java.util.HashMap;
 public class Show implements Command {
     public void execute(String[] args, CollectionManager collectionManager) {
         Collection<SpaceMarine> mapValues = collectionManager.getCollection().values();
-        for (var v: mapValues) {
+
+        HashMap <Integer, SpaceMarine> space = collectionManager.getCollection();
+        ArrayList<SpaceMarine> nmarines =  mapValues.stream()
+                .sorted(Comparator.comparing(marine -> marine.getChapter().getWorld()))
+                .collect(Collectors.toCollection(() -> new ArrayList<>()));
+
+
+        for (var v: nmarines) {
             System.out.println(v);
         }
 

@@ -5,6 +5,8 @@ import Exeptions.ArgExeption;
 import Exeptions.FileExeption;
 import Exeptions.InputExeption;
 import Exeptions.ReadExeption;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.time.LocalDateTime;
@@ -21,6 +23,7 @@ import java.util.HashMap;
  * </ul>
  */
 public class FileManager {
+    Logger logger = LoggerFactory.getLogger(FileManager.class);
     private static int id = 1;
     public String filename;
 

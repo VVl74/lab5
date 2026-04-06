@@ -4,6 +4,8 @@ import Collection.SpaceMarine;
 import Exeptions.ArgExeption;
 import Exeptions.InputExeption;
 import Managers.CollectionManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -14,6 +16,7 @@ import java.util.Set;
  */
 public class CountLessThanHealth implements Command {
     public void execute(String[] args, CollectionManager collectionManager) {
+        Logger logger = LoggerFactory.getLogger(CountLessThanHealth.class);
         if (args.length > 1) {
             throw new ArgExeption();
             // System.out.println("нужен только 1 аргумент");
@@ -37,6 +40,7 @@ public class CountLessThanHealth implements Command {
         }
         System.out.println("колво элементов:" + sh);
         System.out.println("элементы посчитаны\n");
+        logger.info("элементы посчитаны");
     }
     public String getComandInfo() {
         return "count_less_than_health health (double) : вывести количество элементов, "

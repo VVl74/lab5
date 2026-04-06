@@ -3,6 +3,8 @@ package Managers;
 import Collection.SpaceMarine;
 import Exeptions.IdElemExeption;
 import Exeptions.NotElemExeption;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -19,6 +21,7 @@ import java.util.HashMap;
  * </ul>
  */
 public class CollectionManager {
+    Logger logger = LoggerFactory.getLogger(CollectionManager.class);
     private HashMap<Integer, SpaceMarine> spaceMarineHashMap;
     private LocalDateTime dateInit;
 
@@ -34,6 +37,7 @@ public class CollectionManager {
         if (spaceMarineHashMap.containsKey(newSpaceMarine.getId())) {
             throw new IdElemExeption();
         } else {
+            logger.info("элемент добавлен");
             spaceMarineHashMap.put(newSpaceMarine.getId(), newSpaceMarine);
         }
     }
@@ -42,6 +46,7 @@ public class CollectionManager {
      */
     public void swapElement(SpaceMarine newSpaceMarine, int id) {
         if (spaceMarineHashMap.containsKey(newSpaceMarine.getId())) {
+            logger.info("элемент заменен");
             spaceMarineHashMap.put(id, newSpaceMarine);
         } else {
             throw new NotElemExeption();
@@ -52,6 +57,7 @@ public class CollectionManager {
      */
     public void removeElement(int id) {
         if (spaceMarineHashMap.containsKey(id)) {
+            logger.info("элемент удален");
             spaceMarineHashMap.remove(id);
         } else {
             System.out.println("нет элемента с таким ID");

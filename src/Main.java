@@ -19,6 +19,8 @@ import java.nio.channels.SocketChannel;
 import java.util.HashMap;
 import java.util.Scanner;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Главный класс приложения отвечающий за запуск работы с коллекциями
@@ -43,6 +45,9 @@ public class Main {
      */
     public static void main(String[] args) throws IOException {
 
+        Logger logger = LoggerFactory.getLogger(Main.class);
+
+
         String filename = "data.csv";
 
         FileManager fileManager = new FileManager();
@@ -54,7 +59,8 @@ public class Main {
         try {
             newCollection = fileManager.fileRead();
         } catch (Exception e) {
-             System.out.println("не удалось прочитать файл");
+            // System.out.println("не удалось прочитать файл");
+            logger.info("не удалось прочитать файл");
         }
 
         CollectionManager collectionManager = new CollectionManager(newCollection);
@@ -67,17 +73,62 @@ public class Main {
 
         ByteBuffer buf = ByteBuffer.allocate(16384);
 
-        System.out.println("Сервер запущен");
+        // System.out.println("Сервер запущен");
+        logger.info("Сервер запущен");
+
+        Terminal terminal = null;
+
+        try {
+            terminal = TerminalBuilder.builder().system(true).build();
+        } catch (Exception e) {
+            throw new RuntimeException();
+        }
+
+        LineReader reader = LineReaderBuilder.builder().terminal(terminal).build();
+
+
+        new Thread(new Runnable() {
+            public void run() {
+                while(true) {
+                    String TerInput = null;
+                    try {
+                        TerInput = reader.readLine();
+                    } catch (Exception e) {
+                        System.out.println("ввод завершен");
+                    }
+
+                    TerInput = TerInput.trim();
+
+                    if (TerInput == null) {
+                        continue;
+                    }
+
+                    String[] TerArgs = TerInput.split(" ");
+
+                    if (TerArgs[0].equals("exit") || TerArgs[0].equals("save")) {
+                        logger.info("команда выполнена");
+                        curCommandManager.newCommand(TerArgs);
+                    } else {
+                        logger.info("команда не выполнена");
+                    }
+                }
+            }
+        }).start();
 
         while (true) {
+
+
             buf.clear();
             SocketAddress client = servChannel.receive(buf);
+
+            // logger.info("запрос получен");
 
             String input = null;
 
             // ByteBuffer vvodBuf = ByteBuffer.allocate(16384);
 
             if (client != null) {
+                logger.info("запрос получен");
                 buf.flip();
 
                 ObjectMapper mapper = new ObjectMapper();
@@ -108,8 +159,10 @@ public class Main {
                 System.setOut(prstream);
 
                 try {
-                    curCommandManager.newCommand(parts);
-                    System.out.println(parts[0]);
+                    if (!parts[0].equals("exit") && !parts[0].equals("save")) {
+                        curCommandManager.newCommand(parts);
+                    }
+                    //System.out.println(parts[0]);
                 } catch (Exception e) {
                     ans = ("Ошибка, команда не выполнена");
                 } finally {
@@ -129,8 +182,11 @@ public class Main {
 
                 servChannel.send(otvet, client);
 
+                logger.info("Ответ отправлен");
+
             } else {
                 // System.out.println("С склиентом что то не так, адреса нет");
+                // logger.info("Ошибка у клиента нет адреса");
             }
         }
     }
