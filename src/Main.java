@@ -87,34 +87,6 @@ public class Main {
         LineReader reader = LineReaderBuilder.builder().terminal(terminal).build();
 
 
-        new Thread(new Runnable() {
-            public void run() {
-                while(true) {
-                    String TerInput = null;
-                    try {
-                        TerInput = reader.readLine();
-                    } catch (Exception e) {
-                        System.out.println("ввод завершен");
-                    }
-
-                    TerInput = TerInput.trim();
-
-                    if (TerInput == null) {
-                        continue;
-                    }
-
-                    String[] TerArgs = TerInput.split(" ");
-
-                    if (TerArgs[0].equals("exit") || TerArgs[0].equals("save")) {
-                        logger.info("команда выполнена");
-                        curCommandManager.newCommand(TerArgs);
-                    } else {
-                        logger.info("команда не выполнена");
-                    }
-                }
-            }
-        }).start();
-
         while (true) {
 
 
@@ -187,6 +159,30 @@ public class Main {
             } else {
                 // System.out.println("С склиентом что то не так, адреса нет");
                 // logger.info("Ошибка у клиента нет адреса");
+            }
+
+            if (System.in.available() > 0) {
+                String TerInput = null;
+                try {
+                    TerInput = reader.readLine();
+                } catch (Exception e) {
+                    System.out.println("ввод завершен");
+                }
+
+                TerInput = TerInput.trim();
+
+                if (TerInput == null) {
+                    continue;
+                }
+
+                String[] TerArgs = TerInput.split(" ");
+
+                if (TerArgs[0].equals("exit") || TerArgs[0].equals("save")) {
+                    logger.info("команда выполнена");
+                    curCommandManager.newCommand(TerArgs);
+                } else {
+                    logger.info("команда не выполнена");
+                }
             }
         }
     }
