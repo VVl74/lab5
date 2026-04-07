@@ -82,10 +82,18 @@ public class Client {
 
                 SocketAddress from = null;
 
+                long otpravTime = System.currentTimeMillis();
+                long timeOut = 5000;
+
                 while(true) {
                     from = channel.receive(vvodBuf);
 
                     if (from != null) {
+                        break;
+                    }
+
+                    if (System.currentTimeMillis() - otpravTime > timeOut) {
+                        System.out.println("Сервер не ответил");
                         break;
                     }
 
