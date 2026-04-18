@@ -3,6 +3,9 @@ import Exeptions.CommandExeption;
 import Managers.CollectionManager;
 import Managers.CommandManager;
 import Managers.FileManager;
+import Managers.ServerManager;
+import Utils.InputPack;
+import Utils.OutputPack;
 import Utils.Wrapper;
 import org.jline.reader.LineReader;
 import org.jline.reader.LineReaderBuilder;
@@ -67,11 +70,13 @@ public class Main {
 
         CommandManager curCommandManager = new CommandManager(collectionManager);
 
-        DatagramChannel servChannel = DatagramChannel.open();
-        servChannel.bind(new InetSocketAddress(12345));
-        servChannel.configureBlocking(false);
+        // DatagramChannel servChannel = DatagramChannel.open();
+        // servChannel.bind(new InetSocketAddress(12345));
+        // servChannel.configureBlocking(false);
 
-        ByteBuffer buf = ByteBuffer.allocate(16384);
+        ServerManager servChannel = new ServerManager(12345);
+
+        // ByteBuffer buf = ByteBuffer.allocate(16384);
 
         // System.out.println("Сервер запущен");
         logger.info("Сервер запущен");
@@ -88,10 +93,9 @@ public class Main {
 
 
         while (true) {
-
-
-            buf.clear();
-            SocketAddress client = servChannel.receive(buf);
+            InputPack pack;
+            pack = servChannel.recive();
+            // buf.clear();
 
             // logger.info("запрос получен");
 
@@ -99,17 +103,21 @@ public class Main {
 
             // ByteBuffer vvodBuf = ByteBuffer.allocate(16384);
 
-            if (client != null) {
+            if (pack == null) {
+                continue;
+            }
+
+            if (pack.client != null) {
                 logger.info("запрос получен");
-                buf.flip();
+                // buf.flip();
 
                 ObjectMapper mapper = new ObjectMapper();
 
-                byte[] data = new byte[buf.limit()];
+                // byte[] data = new byte[buf.limit()];
 
-                buf.get(data);
+                // buf.get(data);
 
-                Wrapper prvvod = mapper.readValue(data, Wrapper.class);
+                Wrapper prvvod = mapper.readValue(pack.data, Wrapper.class);
 
                 input  = prvvod.getZapr();
 
@@ -152,13 +160,16 @@ public class Main {
 
                 // ans =  stream.toString();
 
-                servChannel.send(otvet, client);
+                OutputPack outPack = new OutputPack(otvet, pack.client);
+
+                servChannel.send(outPack);
 
                 logger.info("Ответ отправлен");
 
             } else {
                 // System.out.println("С склиентом что то не так, адреса нет");
                 // logger.info("Ошибка у клиента нет адреса");
+                continue;
             }
 
             if (System.in.available() > 0) {
