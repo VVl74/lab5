@@ -103,11 +103,8 @@ public class Main {
 
             // ByteBuffer vvodBuf = ByteBuffer.allocate(16384);
 
-            if (pack == null) {
-                continue;
-            }
-
             if (pack.client != null) {
+
                 logger.info("запрос получен");
                 // buf.flip();
 
@@ -169,7 +166,6 @@ public class Main {
             } else {
                 // System.out.println("С склиентом что то не так, адреса нет");
                 // logger.info("Ошибка у клиента нет адреса");
-                continue;
             }
 
             if (System.in.available() > 0) {

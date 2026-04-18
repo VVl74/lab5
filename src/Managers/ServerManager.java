@@ -25,7 +25,8 @@ public class ServerManager {
         SocketAddress client = servChannel.receive(buffer);
 
         if (client == null) {
-            return null;
+            InputPack retPack1 = new InputPack(null , null);
+            return retPack1;
         }
 
         buffer.flip();
