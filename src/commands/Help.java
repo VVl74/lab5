@@ -2,6 +2,7 @@ package commands;
 
 import managers.CollectionManager;
 
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Set;
 /**
@@ -14,14 +15,14 @@ public class Help implements Command {
     public Help(HashMap<String, Command> newCommandHashMap) {
         commandHashMap = newCommandHashMap;
     }
-    public void execute(String[] args, CollectionManager collectionManager) {
+    public void execute(String[] args, CollectionManager collectionManager, PrintWriter out) {
         Set<String> keys = commandHashMap.keySet();
 
         for(String i: keys) {
-            System.out.println(commandHashMap.get(i).getComandInfo());
+            out.println(commandHashMap.get(i).getComandInfo());
         }
 
-        System.out.println("все команды выведены\n");
+        out.println("все команды выведены\n");
     }
     public String getComandInfo() {
         return "help : вывести справку по доступным командам\n";

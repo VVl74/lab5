@@ -5,7 +5,9 @@ import org.jline.reader.LineReaderBuilder;
 import org.jline.terminal.Terminal;
 import org.jline.terminal.TerminalBuilder;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.logging.Logger;
 
 public class InputManager {
@@ -38,9 +40,13 @@ public class InputManager {
 
             String[] TerArgs = TerInput.split(" ");
 
+            ByteArrayOutputStream bufStr = new ByteArrayOutputStream();
+            PrintWriter out = new PrintWriter(bufStr);
+
             if (TerArgs[0].equals("exit") || TerArgs[0].equals("save")) {
                 logger.info("команда выполнена");
-                curCommandManager.newCommand(TerArgs);
+                curCommandManager.newCommand(TerArgs, out);
+                System.out.println(bufStr.toString());
             } else {
                 logger.info("команда не выполнена");
             }

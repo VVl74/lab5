@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 /**
  * Комманда для запуска скрипта с командами
@@ -17,7 +18,7 @@ import java.util.ArrayList;
 
 public class ExecuteScriptFileName implements Command {
 
-    public void execute(String[] args, CollectionManager collection) {
+    public void execute(String[] args, CollectionManager collection, PrintWriter out) {
         Logger logger = LoggerFactory.getLogger(ExecuteScriptFileName.class);
         if (args.length > 1 || args.length == 0) {
             throw  new ArgExeption();
@@ -39,7 +40,7 @@ public class ExecuteScriptFileName implements Command {
         try {
             commands = fileManager.commandRead();
         } catch (FileNotFoundException e) {
-            System.out.println("имя файла неверно или файл не читаем");
+            out.println("имя файла неверно или файл не читаем");
             logger.info("имя файла неверно или файл не читаем");
         }
 
@@ -48,11 +49,11 @@ public class ExecuteScriptFileName implements Command {
         if (commands != null) {
             for (String i : commands) {
                 String[] newArgs = i.split(" ");
-                commandManager.newCommand(newArgs);
+                commandManager.newCommand(newArgs, out);
             }
             collection.scriptRemove(filename);
         }
-        System.out.println("Скрипт выполнен\n");
+        out.println("Скрипт выполнен\n");
         logger.info("Скрипт выполнен");
     }
 

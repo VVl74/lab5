@@ -6,13 +6,14 @@ import exeptions.InputExeption;
 import managers.CollectionManager;
 import utils.Parser;
 
+import java.io.PrintWriter;
 import java.util.Set;
 /**
  * Комманда для выведения всех элементов чей Chapter меньше заданного
  *
  */
 public class FilterLessThanChapter implements Command {
-    public void execute(String[] args, CollectionManager collectionManager) {
+    public void execute(String[] args, CollectionManager collectionManager, PrintWriter out) {
         if (args.length !=4) {
             throw  new ArgExeption();
             // System.out.println("неверное число аргументов");
@@ -27,11 +28,11 @@ public class FilterLessThanChapter implements Command {
         Set<Integer> mapValues = collectionManager.getCollection().keySet();
         for (var v : mapValues) {
             if (collectionManager.getCollection().get(v).getChapter().compareTo(chapter) < 0) {
-                System.out.println(collectionManager.getCollection().get(v));
+                out.println(collectionManager.getCollection().get(v));
             }
         }
 
-        System.out.println("все элементы с Chapter < заданного выведены\n");
+        out.println("все элементы с Chapter < заданного выведены\n");
     }
     public String getComandInfo() {
         return "filter_greater_than_chapter chapter : вывести элементы, значение поля chapter которых меньше заданного\n" +

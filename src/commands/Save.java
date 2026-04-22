@@ -8,6 +8,7 @@ import managers.CollectionManager;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Set;
 /**
@@ -16,7 +17,7 @@ import java.util.Set;
  */
 public class Save implements Command {
     @Override
-    public void execute(String[] args, CollectionManager collectionManager) {
+    public void execute(String[] args, CollectionManager collectionManager, PrintWriter out) {
         if (args.length == 1) {
             String filename = args[0];
 

@@ -1,0 +1,55 @@
+package utils;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import managers.CommandManager;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import java.io.PrintWriter;
+import java.net.SocketAddress;
+import java.nio.ByteBuffer;
+
+public class PackFactory {
+    ObjectMapper mapper;
+    public PackFactory() {
+        mapper = new ObjectMapper();
+    }
+
+    public OutputPack BuildPack(SocketAddress client, CommandManager curCommandManager, String[] parts) {
+        ByteArrayOutputStream bufStream = new ByteArrayOutputStream();
+        PrintWriter out = new PrintWriter(bufStream, true);
+
+        try {
+            if (!parts[0].equals("exit") && !parts[0].equals("save")) {
+                curCommandManager.newCommand(parts, out);
+            }
+        } catch (Exception e) {
+            // ans = ("Ошибка, команда не выполнена");
+        } finally {
+            // System.setOut(old);
+        }
+
+        out.flush();
+        String prStr = bufStream.toString();
+
+        Wrapper res = new Wrapper();
+        res.setZapr(prStr);
+
+        byte[] jsonByte;
+
+        try {
+            jsonByte = mapper.writeValueAsBytes(res);
+        } catch (Exception e) {
+            e.printStackTrace();
+            jsonByte = "ошибка сериализации".getBytes();
+        }
+
+        ByteBuffer otvet = ByteBuffer.wrap(jsonByte);
+
+        OutputPack outPack = new OutputPack(otvet, client);
+
+        // System.setOut(old);
+
+        return outPack;
+    }
+}

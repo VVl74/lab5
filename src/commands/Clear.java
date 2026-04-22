@@ -4,15 +4,17 @@ import managers.CollectionManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.PrintWriter;
+
 /**
  * Комманда для удаления всех элементов коллекции
  *
  */
 public class Clear implements Command {
-    public void execute(String[] args, CollectionManager collectionManager) {
+    public void execute(String[] args, CollectionManager collectionManager, PrintWriter out) {
         Logger logger = LoggerFactory.getLogger(Clear.class);
         collectionManager.getCollection().clear();
-        System.out.println("коллекция очищена\n");
+        out.println("коллекция очищена\n");
         logger.info("коллекция очщена");
     }
     public String getComandInfo() {

@@ -4,12 +4,15 @@ import collection.*;
 import exeptions.ArgExeption;
 import managers.CollectionManager;
 import utils.Parser;
+
+import java.io.PrintWriter;
+
 /**
  * Комманда для добавления элемента в коллекцию
  *
  */
 public class InsertNull implements Command {
-    public void execute(String[] args, CollectionManager collectionManager) {
+    public void execute(String[] args, CollectionManager collectionManager, PrintWriter out) {
         if (args.length != 12) {
             throw new ArgExeption();
             //System.out.println("неверное число аргументов " + args.length);
@@ -19,12 +22,12 @@ public class InsertNull implements Command {
         try {
             spacemar = parser.parsSpaceMarine(args);
         } catch (Exception e) {
-            System.out.println("ошибка ввода данных");
+            out.println("ошибка ввода данных");
             return;
         }
         collectionManager.inputElement(spacemar);
 
-        System.out.println("элемент добавлен\n");
+        out.println("элемент добавлен\n");
     }
     public String getComandInfo() {
         // insert 500 Ultramarine 12.5 7 150 ASSAULT BOLTGUN CHAIN_SWORD Ultramar Guilliman 500 Macragge

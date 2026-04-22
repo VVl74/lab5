@@ -4,13 +4,14 @@ import exeptions.ArgExeption;
 import exeptions.InputExeption;
 import managers.CollectionManager;
 
+import java.io.PrintWriter;
 import java.util.*;
 /**
  * Комманда для удаления всеъ элементов чей улюч меньше заданного
  *
  */
 public class RemoveLowerKeyNull implements Command {
-    public void execute(String[] args, CollectionManager collectionManager) {
+    public void execute(String[] args, CollectionManager collectionManager, PrintWriter out) {
         if (args.length > 1) {
             throw new ArgExeption();
         }
@@ -34,7 +35,7 @@ public class RemoveLowerKeyNull implements Command {
             collectionManager.removeElement(k);
         }
 
-        System.out.println("все элементы чей ключ < заданного удалены\n");
+        out.println("все элементы чей ключ < заданного удалены\n");
     }
     public String getComandInfo() {
         return "remove_lower_key key (int) : удалить из коллекции все элементы, " +

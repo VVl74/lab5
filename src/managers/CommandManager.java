@@ -5,6 +5,8 @@ import exeptions.ArgExeption;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.PrintStream;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -57,7 +59,9 @@ public class CommandManager {
      *      <li> Добавление вызванной команды в историю </li>
      * </ul>
      */
-    public void newCommand(String[] args) {
+    public void newCommand(String[] args, PrintWriter out) {
+        PrintStream old =System.out;
+
         String com = args[0];
 
         String[] commandArgs = Arrays.copyOfRange(args, 1, args.length);
@@ -65,15 +69,16 @@ public class CommandManager {
         if (commandHashMap.containsKey(com)) {
             try {
                 logger.info("команда выполняется");
-                commandHashMap.get(com).execute(commandArgs, collectionManager);
+
+                commandHashMap.get(com).execute(commandArgs, collectionManager, out);
             } catch (ArgExeption e) {
                 logger.info("ошибка, команда не выполнена");
-                // System.out.println("Ошибка, команда не выполнена");
+                out.println("Ошибка, команда не выполнена");
             }
             commandHistory.add(com);
         } else {
             logger.info("неизвестная команда");
-            // System.out.println("неизвестная команда");
+            out.println("неизвестная команда");
         }
     }
 }

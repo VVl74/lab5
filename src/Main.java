@@ -2,6 +2,7 @@ import collection.SpaceMarine;
 import managers.*;
 import utils.InputPack;
 import utils.OutputPack;
+import utils.PackFactory;
 import utils.Wrapper;
 
 import java.io.*;
@@ -54,62 +55,10 @@ public class Main {
 
         ServerManager servChannel = new ServerManager(12345);
 
-        logger.info("Сервер запущен");
-
         InputManager inputManager = new InputManager();
 
-        while (true) {
-            InputPack pack;
-            pack = servChannel.recive();
-            String input = null;
+        ServerEngine servEng = new ServerEngine(curCommandManager, servChannel, inputManager);
 
-            if (pack.client != null) {
-                logger.info("запрос получен");
-
-                ObjectMapper mapper = new ObjectMapper();
-
-                Wrapper prvvod = mapper.readValue(pack.data, Wrapper.class);
-
-                input  = prvvod.getZapr();
-
-                if (input == null) {
-                    continue;
-                }
-
-                String[] parts = input.split(" ");
-                String ans = " ";
-
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                PrintStream prstream = new PrintStream(stream);
-                PrintStream old = System.out;
-                System.setOut(prstream);
-
-                try {
-                    if (!parts[0].equals("exit") && !parts[0].equals("save")) {
-                        curCommandManager.newCommand(parts);
-                    }
-                } catch (Exception e) {
-                    ans = ("Ошибка, команда не выполнена");
-                } finally {
-                    System.setOut(old);
-                }
-
-                String prStr = stream.toString();
-
-                Wrapper res = new Wrapper();
-                res.setZapr(prStr);
-
-                byte[] jsonByte = mapper.writeValueAsBytes(res);
-
-                ByteBuffer otvet = ByteBuffer.wrap(jsonByte);
-
-                OutputPack outPack = new OutputPack(otvet, pack.client);
-
-                servChannel.send(outPack);
-
-                logger.info("Ответ отправлен");
-            }
-            inputManager.InputTerm(curCommandManager);
-        }
+        servEng.run();
     }
 }

@@ -1,12 +1,15 @@
 package commands;
 
 import managers.CollectionManager;
+
+import java.io.PrintWriter;
+
 /**
  * Комманда для выхода из программы
  *
  */
 public class Exit implements Command {
-    public void execute(String[] args, CollectionManager collectionManager) {
+    public void execute(String[] args, CollectionManager collectionManager, PrintWriter out) {
         System.exit(0);
     }
     public String getComandInfo() {

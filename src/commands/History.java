@@ -2,6 +2,8 @@ package commands;
 
 import managers.CollectionManager;
 
+import java.io.PrintStream;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import static java.lang.Math.max;
@@ -14,13 +16,14 @@ public class History implements Command {
     public History(ArrayList<String> commandHistory) {
         history = commandHistory;
     }
+
     @Override
-    public void execute(String[] args, CollectionManager collectionManager) {
+    public void execute(String[] args, CollectionManager collectionManager, PrintWriter out) {
         for (int i = max(history.toArray().length - 14, 0); i < history.toArray().length; i++) {
-            System.out.println(history.get(i));
+            out.println(history.get(i));
         }
 
-        System.out.println("история команд выведена\n");
+        out.println("история команд выведена\n");
     }
 
     @Override

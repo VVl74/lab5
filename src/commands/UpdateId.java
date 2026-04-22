@@ -4,12 +4,15 @@ import collection.SpaceMarine;
 import exeptions.ArgExeption;
 import managers.CollectionManager;
 import utils.Parser;
+
+import java.io.PrintWriter;
+
 /**
  * Комманда для обновления элемента на новый по заданному ID
  *
  */
 public class UpdateId implements Command {
-    public void execute(String[] args, CollectionManager collectionManager) {
+    public void execute(String[] args, CollectionManager collectionManager, PrintWriter out) {
         if (args.length != 12) {
             throw new ArgExeption();
         }
@@ -18,12 +21,12 @@ public class UpdateId implements Command {
         try {
             spacemar = parser.parsSpaceMarine(args);
         } catch (Exception e) {
-            System.out.println("ошибка ввода данных");
+            out.println("ошибка ввода данных");
             return;
         }
         collectionManager.swapElement(spacemar, spacemar.getId());
 
-        System.out.println("элемент обновлен\n");
+        out.println("элемент обновлен\n");
     }
     public String getComandInfo() {
         return "update id {element} : обновить значение элемента коллекции," +

@@ -6,13 +6,14 @@ import managers.CollectionManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.PrintWriter;
 import java.util.Set;
 /**
  * Комманда для выведения всех элементов чье здоровье меньше заданного
  *
  */
 public class CountLessThanHealth implements Command {
-    public void execute(String[] args, CollectionManager collectionManager) {
+    public void execute(String[] args, CollectionManager collectionManager, PrintWriter out) {
         Logger logger = LoggerFactory.getLogger(CountLessThanHealth.class);
         if (args.length > 1) {
             throw new ArgExeption();
@@ -35,8 +36,8 @@ public class CountLessThanHealth implements Command {
                 sh++;
             }
         }
-        System.out.println("колво элементов:" + sh);
-        System.out.println("элементы посчитаны\n");
+        out.println("колво элементов:" + sh);
+        out.println("элементы посчитаны\n");
         logger.info("элементы посчитаны");
     }
     public String getComandInfo() {

@@ -4,12 +4,15 @@ import collection.SpaceMarine;
 import exeptions.ArgExeption;
 import managers.CollectionManager;
 import utils.Parser;
+
+import java.io.PrintWriter;
+
 /**
  * Комманда замены элемента если его здоровье меньше чем текущего
  *
  */
 public class ReplaceIfLoweNull implements Command {
-    public void execute(String[] args, CollectionManager collectionManager) {
+    public void execute(String[] args, CollectionManager collectionManager, PrintWriter out) {
         if (args.length != 12) {
             throw new ArgExeption();
             // System.out.println("Неверный ввод данных");
@@ -20,14 +23,14 @@ public class ReplaceIfLoweNull implements Command {
         try {
             spacemar = parser.parsSpaceMarine(args);
         } catch (Exception e) {
-            System.out.println("ошибка ввода данных");
+            out.println("ошибка ввода данных");
             return;
         }
         if (collectionManager.getCollection().get(spacemar.getId()).compareTo(spacemar) > 0) {
             collectionManager.swapElement(spacemar, spacemar.getId());
-            System.out.println("элемент обновлен\n");
+            out.println("элемент обновлен\n");
         } else {
-            System.out.println("элемент не обновлен\n");
+            out.println("элемент не обновлен\n");
         }
     }
     public String getComandInfo() {
