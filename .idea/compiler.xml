@@ -2,7 +2,9 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel>
+      <module name="my-project.Client" target="17" />
       <module name="my-project.Client.main~1" target="17" />
+      <module name="my-project.Client.test" target="17" />
       <module name="my-project.Client.test~1" target="17" />
     </bytecodeTargetLevel>
   </component>

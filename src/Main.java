@@ -1,26 +1,12 @@
-import Collection.SpaceMarine;
-import Exeptions.CommandExeption;
-import Managers.CollectionManager;
-import Managers.CommandManager;
-import Managers.FileManager;
-import Managers.ServerManager;
-import Utils.InputPack;
-import Utils.OutputPack;
-import Utils.Wrapper;
-import org.jline.reader.LineReader;
-import org.jline.reader.LineReaderBuilder;
-import org.jline.terminal.Terminal;
-import org.jline.terminal.TerminalBuilder;
+import collection.SpaceMarine;
+import managers.*;
+import utils.InputPack;
+import utils.OutputPack;
+import utils.Wrapper;
 
 import java.io.*;
-import java.net.*;
-import java.nio.Buffer;
 import java.nio.ByteBuffer;
-import java.nio.channels.DatagramChannel;
-import java.nio.channels.ServerSocketChannel;
-import java.nio.channels.SocketChannel;
 import java.util.HashMap;
-import java.util.Scanner;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,10 +33,7 @@ public class Main {
      *  </ol>
      */
     public static void main(String[] args) throws IOException {
-
         Logger logger = LoggerFactory.getLogger(Main.class);
-
-
         String filename = "data.csv";
 
         FileManager fileManager = new FileManager();
@@ -62,7 +45,6 @@ public class Main {
         try {
             newCollection = fileManager.fileRead();
         } catch (Exception e) {
-            // System.out.println("не удалось прочитать файл");
             logger.info("не удалось прочитать файл");
         }
 
@@ -70,64 +52,31 @@ public class Main {
 
         CommandManager curCommandManager = new CommandManager(collectionManager);
 
-        // DatagramChannel servChannel = DatagramChannel.open();
-        // servChannel.bind(new InetSocketAddress(12345));
-        // servChannel.configureBlocking(false);
-
         ServerManager servChannel = new ServerManager(12345);
 
-        // ByteBuffer buf = ByteBuffer.allocate(16384);
-
-        // System.out.println("Сервер запущен");
         logger.info("Сервер запущен");
 
-        Terminal terminal = null;
-
-        try {
-            terminal = TerminalBuilder.builder().system(true).build();
-        } catch (Exception e) {
-            throw new RuntimeException();
-        }
-
-        LineReader reader = LineReaderBuilder.builder().terminal(terminal).build();
-
+        InputManager inputManager = new InputManager();
 
         while (true) {
             InputPack pack;
             pack = servChannel.recive();
-            // buf.clear();
-
-            // logger.info("запрос получен");
-
             String input = null;
 
-            // ByteBuffer vvodBuf = ByteBuffer.allocate(16384);
-
             if (pack.client != null) {
-
                 logger.info("запрос получен");
-                // buf.flip();
 
                 ObjectMapper mapper = new ObjectMapper();
-
-                // byte[] data = new byte[buf.limit()];
-
-                // buf.get(data);
 
                 Wrapper prvvod = mapper.readValue(pack.data, Wrapper.class);
 
                 input  = prvvod.getZapr();
 
-
-                // String prs = new String(buf.array(), 0, buf.limit());
-
-                // input = prs;
                 if (input == null) {
                     continue;
                 }
 
                 String[] parts = input.split(" ");
-
                 String ans = " ";
 
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
@@ -139,7 +88,6 @@ public class Main {
                     if (!parts[0].equals("exit") && !parts[0].equals("save")) {
                         curCommandManager.newCommand(parts);
                     }
-                    //System.out.println(parts[0]);
                 } catch (Exception e) {
                     ans = ("Ошибка, команда не выполнена");
                 } finally {
@@ -155,42 +103,13 @@ public class Main {
 
                 ByteBuffer otvet = ByteBuffer.wrap(jsonByte);
 
-                // ans =  stream.toString();
-
                 OutputPack outPack = new OutputPack(otvet, pack.client);
 
                 servChannel.send(outPack);
 
                 logger.info("Ответ отправлен");
-
-            } else {
-                // System.out.println("С склиентом что то не так, адреса нет");
-                // logger.info("Ошибка у клиента нет адреса");
             }
-
-            if (System.in.available() > 0) {
-                String TerInput = null;
-                try {
-                    TerInput = reader.readLine();
-                } catch (Exception e) {
-                    System.out.println("ввод завершен");
-                }
-
-                TerInput = TerInput.trim();
-
-                if (TerInput == null) {
-                    continue;
-                }
-
-                String[] TerArgs = TerInput.split(" ");
-
-                if (TerArgs[0].equals("exit") || TerArgs[0].equals("save")) {
-                    logger.info("команда выполнена");
-                    curCommandManager.newCommand(TerArgs);
-                } else {
-                    logger.info("команда не выполнена");
-                }
-            }
+            inputManager.InputTerm(curCommandManager);
         }
     }
 }
