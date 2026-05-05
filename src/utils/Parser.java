@@ -1,6 +1,7 @@
 package utils;
 
 import collection.*;
+import exeptions.FileExeption;
 import exeptions.InputExeption;
 
 import java.time.LocalDateTime;
@@ -8,6 +9,7 @@ import java.time.LocalDateTime;
  * Класс по сути билдер более сложных штук
  */
 public class Parser {
+    private static int id = 1;
     /**
      * Начало парсера
      *  <ol>
@@ -70,6 +72,67 @@ public class Parser {
             return nchapt;
 
         } catch(Exception e) {
+            throw new InputExeption();
+        }
+    }
+
+    public SpaceMarine parseCSV(String str) {
+        try {
+            String[] elem = str.split(";");
+
+            if (elem.length != 11) {
+                throw new FileExeption("неверное число аргументов");
+            }
+
+            for (int i=0; i < elem.length; i++) {
+                elem[i] = elem[i].trim();
+            }
+
+            int nid = id;
+            String name = elem[0];
+
+            if (name.isEmpty()) {
+                throw new FileExeption("имя не может быть пустым");
+            }
+
+            float x = Float.parseFloat(elem[1]);
+            Long y = (long) Integer.parseInt(elem[2]);
+
+            Coordinates cord = new Coordinates(x, y);
+
+            LocalDateTime ndate = LocalDateTime.now();
+
+            double health = (double) Float.parseFloat(elem[3]);
+
+            if (Double.isNaN(health) || health < 0) {
+                throw new FileExeption("здоровье не может быть NaN или < 0");
+            }
+
+            AstartesCategory nc = AstartesCategory.valueOf(elem[4].toUpperCase());
+
+            Weapon nweapon = Weapon.valueOf(elem[5].toUpperCase());
+
+            MeleeWeapon nmeleeweapon = MeleeWeapon.valueOf(elem[6].toUpperCase());
+
+            String nchaptername = elem[7];
+            String nparentlegion = elem[8];
+
+
+            Long marinescount = (long) Integer.parseInt(elem[9]);
+
+            if (marinescount <= 0 || marinescount > 1000) {
+                throw new FileExeption("неверныая численность");
+            }
+
+            String world = elem[10];
+
+            Chapter marinchapt = new Chapter(nchaptername, nparentlegion, marinescount, world);
+
+            SpaceMarine spacemar = new SpaceMarine(nid, name, cord, ndate, health, nc, nweapon, nmeleeweapon, marinchapt);
+
+            id++;
+            return spacemar;
+        } catch (Exception e) {
             throw new InputExeption();
         }
     }

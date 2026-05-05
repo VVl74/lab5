@@ -31,7 +31,6 @@ public class ClientEngine {
 
     private void processing(String input) throws IOException {
         ByteBuffer sendBuf = factory.OutputFactory(input);
-
         try {
             serverManager.send(sendBuf);
 

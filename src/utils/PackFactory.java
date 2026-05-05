@@ -11,8 +11,10 @@ import java.nio.ByteBuffer;
 
 public class PackFactory {
     ObjectMapper mapper;
+    WrapperUtils utils;
     public PackFactory() {
         mapper = new ObjectMapper();
+        utils = new WrapperUtils(31);
     }
 
     public OutputPack BuildPack(SocketAddress client, CommandManager curCommandManager, String[] parts) {
@@ -33,7 +35,9 @@ public class PackFactory {
         String prStr = bufStream.toString();
 
         Wrapper res = new Wrapper();
-        res.setZapr(prStr);
+        int sum = utils.getControlSum(prStr);
+        int hash = utils.makeHash(prStr);
+        res.setZapr(prStr, sum, hash);
 
         byte[] jsonByte;
 

@@ -8,8 +8,10 @@ import java.nio.ByteBuffer;
 
 public class InpOutFactory {
     ObjectMapper mapper;
+    WrapperUtils utils;
     public InpOutFactory() {
         mapper = new ObjectMapper();
+        utils = new WrapperUtils(31);
     }
 
     public ByteBuffer OutputFactory(String input) throws JsonProcessingException {
@@ -20,7 +22,10 @@ public class InpOutFactory {
         }
         Wrapper outWrap = new Wrapper();
 
-        outWrap.setZapr(input);
+        int sum = utils.getControlSum(input);
+        int hash = utils.makeHash(input);
+
+        outWrap.setZapr(input, sum, hash);
 
         byte[] jsonByte = mapper.writeValueAsBytes(outWrap);
 
@@ -36,10 +41,18 @@ public class InpOutFactory {
         byte[] data = new byte[buffer.limit()];
 
         buffer.get(data);
-
         Wrapper prvvod = mapper.readValue(data, Wrapper.class);
-
         String itog  = prvvod.getZapr();
+
+        int sum = utils.getControlSum(itog);
+        int hash = utils.makeHash(itog);
+
+        if (sum != prvvod.getControlSum()) {
+            System.out.println("Ошибка в контрольной сумме");
+        }
+        if (hash != prvvod.getHash()) {
+            System.out.println("Ошибка в хеше сумме");
+        }
 
         return itog;
     }
