@@ -15,6 +15,9 @@ bin/
 !**/src/main/**/bin/
 !**/src/test/**/bin/
 
+# Gradle build output (по умолчанию игнорится всё, включая jar)
+build/
+
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/
