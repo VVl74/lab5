@@ -1,13 +1,12 @@
-package commands;
+package com.example.commands;
 
-import collection.SpaceMarine;
-import managers.CollectionManager;
+import com.example.collection.SpaceMarine;
+import com.example.managers.CollectionManager;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.stream.Collectors;
 
 /**

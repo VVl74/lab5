@@ -1,3 +1,4 @@
 rootProject.name = 'my-project'
 include 'client'
 include 'Client'
+include 'Server'
