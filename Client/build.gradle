@@ -9,3 +9,8 @@ repositories {
 dependencies {
     implementation fileTree(dir: '../lib', include: ['*.jar'])
 }
+
+tasks.named('jar') {
+    dependsOn(':Client:compileJava')
+    dependsOn(':Client:processResources')
+}
